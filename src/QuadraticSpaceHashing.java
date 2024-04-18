@@ -1,4 +1,4 @@
 
-public class QuadraticSpaceHashing {
-
+public class QuadraticSpaceHashing extends PerfectHashing{
+	
 }

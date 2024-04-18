@@ -1,9 +1,5 @@
 
-public class LinearSpaceHashing {
+public class LinearSpaceHashing extends PerfectHashing{
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 }
