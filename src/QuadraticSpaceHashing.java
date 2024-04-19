@@ -10,6 +10,9 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T>{
 
     public QuadraticSpaceHashing(int n){                                         // Number of elements to be inserted
         this.N = (int) Math.pow(2, Math.ceil(Math.log(n * n) / Math.log(2)) );   // Making the table size a power of 2
+        if (this.N == 1){
+            this.N ++;
+        }
         this.hashFunction = new HashFunction(this.N);
         this.rebuild = 0;
         this.collisions = 0;
@@ -125,6 +128,9 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T>{
             }
         }
         this.N = (int) Math.pow(2, Math.ceil(Math.log(elementCounter * elementCounter) / Math.log(2)) );
+        if (this.N == 1){
+            this.N ++;
+        }
         this.hashFunction = new HashFunction(this.N);
         this.elementCounter = 0;
         this.quadraticSpace = new ArrayList<>();

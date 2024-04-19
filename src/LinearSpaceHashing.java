@@ -12,6 +12,9 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T>{
     //Constructor to initialize the table
     public LinearSpaceHashing(int n){                                        // n is the Number of elements to be inserted
         this.N = (int) Math.pow(2, Math.ceil(Math.log(n) / Math.log(2)) );   // Making the table size a power of 2
+        if (this.N == 1){
+            this.N ++;
+        }
         this.primaryFunction = new HashFunction(this.N);                     // Initializing the primary hash function.
         this.rebuild = 0;
         this.collisions = 0;
@@ -121,6 +124,9 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T>{
             elements.addAll(q.getElements());
         }
         this.N = (int) Math.pow(2, Math.ceil(Math.log(elementCounter) / Math.log(2)) );
+        if (this.N == 1){
+            this.N ++;
+        }
         this.primaryFunction = new HashFunction(this.N);
         this.elementCounter = 0;
         this.linearSpace = new ArrayList<QuadraticSpaceHashing<T>>();

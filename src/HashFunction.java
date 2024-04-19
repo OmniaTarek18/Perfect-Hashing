@@ -9,6 +9,10 @@ public class HashFunction {
 	 * our constructor takes the rows and randomize the matrix
 	 */
 	public HashFunction(int row) {
+		// this.rows = (int) Math.ceil(Math.log(row) / Math.log(2));
+		// if (this.rows == 0) {
+		// 	this.rows = 1;
+		// }
 		this.row = row;
 		this.matrix = new int[this.row][this.col];
 		this.RandomiseMatrix();
