@@ -3,12 +3,13 @@ import java.util.Random;
 public class HashFunction {
 	private int row;
 	private int[][] matrix;
-	private final int col = 64;
+	private final int col = 256;
 
 	/*
 	 * our constructor takes the rows and randomize the matrix
 	 */
-	public HashFunction(int row) {
+	public HashFunction(int n) {
+		int row = (int) Math.ceil(Math.log(n)/Math.log(2));
 		this.row = row;
 		this.matrix = new int[this.row][this.col];
 		this.RandomiseMatrix();
@@ -29,9 +30,9 @@ public class HashFunction {
 	/*
 	 * Do the Multiplication and return the index
 	 */
-	private long getIndex(long key) {
+	private int getIndex(String key) {
 
-		int[] binaryKey = this.convertToBinary(key);
+		int[] binaryKey = this.convertToBinaryArr(key);
 		// multiplication
 		int[] index = new int[this.row];
 		for (int i = 0; i < this.row; i++) {
@@ -41,19 +42,19 @@ public class HashFunction {
 			index[i] &= 1; // bitwise operation (index % 2 )
 		}
 
-		long decimalIndex = this.convertToDecimal(index);
+		int decimalIndex = this.convertToDecimal(index);
 
 		return decimalIndex;
 	}
 
 	/*
-	 * convert key to binary -> 8 -> [1,0,0,0]
+	 * convert binary string to binary array of size 256
 	 */
-	private int[] convertToBinary(long key) {
-		int[] binaryKey = new int[64];
-		for (int i = 64 - 1; i >= 0; i--) {
-			binaryKey[i] = (int) (key & 1);
-			key >>= 1;
+	private int[] convertToBinaryArr(String bitsRep) {
+		int[] binaryKey = new int[256];
+		int start = 256 - bitsRep.length() ;
+		for(int i=start ; i<256  ; i++) {
+			binaryKey[i] = (int) bitsRep.charAt(i-start);
 		}
 		return binaryKey;
 	}
@@ -61,8 +62,8 @@ public class HashFunction {
 	/*
 	 * convert index to decimal using doubling method
 	 */
-	private long convertToDecimal(int[] index) {
-		long decimalIndex = 0;
+	private int convertToDecimal(int[] index) {
+		int decimalIndex = 0;
 		for (int i = 0; i < this.row; i++) {
 			decimalIndex <<= 1;
 			decimalIndex += index[i];
@@ -74,34 +75,46 @@ public class HashFunction {
 	 * main hashing function that calculate the index and handle different type of
 	 * key
 	 */
-	public <T> long hash(T key) {
-		long newKey;
+	public <T> int hash(T key) {
+		String newKey ;
 		if (key instanceof String) {
-			newKey = this.toLong((String) key);
-		} else if (key instanceof Character) {
-			newKey = this.toLong((Character) key);
-		} else
-			newKey = ((Number) key).longValue();
+			newKey = this.toBinaryString((String) key);
+		} else if (key instanceof Double) {
+			newKey = this.toBinaryString((Double) key);
+		} else if (key instanceof Long)
+			newKey = this.toBinaryString((Long) key);
+		else {
+			newKey =this.toBinaryString((Integer) key);
+		}
 		return this.getIndex(newKey);
 	}
 
 	/*
-	 * handle different types of keys
+	 * handle different types of keys turn the key to binary rep. in string form
 	 */
-	private long toLong(char key) {
-		long newKey = (long) (key);
-		return newKey;
+	private String toBinaryString(int key) {
+        String binaryString = Integer.toBinaryString(key);
+		return binaryString;
 	}
-
-	private long toLong(String key) {
+	
+	private String toBinaryString(double key) {
+		long longBits = Double.doubleToLongBits(key);
+		String binaryString = Long.toBinaryString(longBits);
+		return binaryString;
+	}
+	private String toBinaryString(long key) {
+        String binaryString = Long.toBinaryString(key);
+		return binaryString;
+	}
+	private String toBinaryString(String key) {
 		StringBuilder binary = new StringBuilder();
 		for (int i = 0; i < key.length(); i++) {
 			int ascii = (int) key.charAt(i);
 			String binaryStr = Integer.toBinaryString(ascii);
 			binary.append(binaryStr);
 		}
-		long newKey = Long.parseLong(binary.toString(), 2);
-		return newKey;
+		String binaryString = binary.toString();
+		return binaryString;
 
 	}
 
