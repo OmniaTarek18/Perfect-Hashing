@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 
-public class PerfectHashing {
-	long n; // number of elements 
-	HashFunction hashFunc;
-	int collosions;
-	long[][] hashTable;
-//	
-//	functions to handle each key type to be ready to go as a long key to hashFunc methods
-	
+public interface PerfectHashing<T> {
+	public boolean insert(T key);
+	public boolean delete(T key);
+	public boolean searchForKey(T key);
+	public int[] batchInsert(ArrayList<T> elements);
+	public int[] batchDelete(ArrayList<T> elements);
+	public int getCollisions();
+	public int getRebuild();
 }
