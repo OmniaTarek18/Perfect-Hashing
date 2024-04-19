@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class LinearSpaceHashing<T> extends PerfectHashing{
+public class LinearSpaceHashing<T> implements PerfectHashing<T>{
 
 	ArrayList< QuadraticSpaceHashing<T> > linearSpace;
     private int rebuild;             // Number of rebuilds due to exceeding the load factor
@@ -61,7 +61,7 @@ public class LinearSpaceHashing<T> extends PerfectHashing{
     // Returns true if element exists and has been deleted; false otherwise.
     public boolean delete(T key){
         int primaryIndex = (int) primaryFunction.hash(key);
-        
+
         if (this.linearSpace.get(primaryIndex) == null){
             return false;
         }
@@ -97,13 +97,24 @@ public class LinearSpaceHashing<T> extends PerfectHashing{
         return added;
     }
 
-    public void batchDelete(){
-        // TODO 
-        // It can return anything else, that just indicates that this method should exist.
+    public int[] batchDelete(ArrayList<T> elements){
+        int[] deleted = new int[2];  // Index 0 indicates how many elements are deleted; Index 1 indicates how many elements doesn't exist.
+
+        for (T key: elements){
+            int primaryIndex = (int) primaryFunction.hash(key);
+            if (this.linearSpace.get(primaryIndex).searchForKey(key)){
+                deleted[0] ++;
+                this.linearSpace.get(primaryIndex).delete(key);
+            }
+            else{
+                deleted[1] ++;
+            }
+        }
+        return deleted;
     }
 
     // Rebuild occurs when load factor exceeds 0.7
-    public void rebuild(){
+    private void rebuild(){
         this.rebuild ++;
         ArrayList<T> elements = new ArrayList<>();
         for (QuadraticSpaceHashing<T> q : this.linearSpace){

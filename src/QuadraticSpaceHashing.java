@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class QuadraticSpaceHashing<T> extends PerfectHashing{
+public class QuadraticSpaceHashing<T> implements PerfectHashing<T>{
 	ArrayList<T> quadraticSpace;
     private int rebuild;             // Number of rebuilds due to exceeding the load factor
     private int collisions;          // Number of collisions (Number of rehashing due to collisions)
@@ -44,7 +44,7 @@ public class QuadraticSpaceHashing<T> extends PerfectHashing{
 
     public boolean delete(T key){
         int index = (int) hashFunction.hash(key);
-        
+
         if (this.quadraticSpace.get(index) == null){
             return false;
         }
@@ -80,9 +80,18 @@ public class QuadraticSpaceHashing<T> extends PerfectHashing{
         return added;
     }
 
-    public void batchDelete(){
-        // TODO 
-        // It can return anything else, that just indicates that this method should exist.
+    public int[] batchDelete(ArrayList<T> elements){
+        int[] deleted = new int[2];  // Index 0 indicates how many elements are deleted; Index 1 indicates how many elements doesn't exist.
+        
+        for (T key : elements){
+            if (this.delete(key)){
+                deleted[0] ++;
+            }
+            else{
+                deleted[1] ++;
+            }
+        }
+        return deleted;
     }
 
     public boolean collisionCheck(T key){
@@ -93,7 +102,7 @@ public class QuadraticSpaceHashing<T> extends PerfectHashing{
         return false;
     }
 
-    public void rehash(){
+    private void rehash(){
         ArrayList<T> elements = new ArrayList<>();
         this.hashFunction = new HashFunction(this.N);
         for(T key: this.quadraticSpace){
@@ -107,7 +116,7 @@ public class QuadraticSpaceHashing<T> extends PerfectHashing{
     }
     
     // Rebuild occurs when load factor exceeds 0.7
-    public void rebuild(){
+    private void rebuild(){
         this.rebuild ++;
         ArrayList<T> elements = new ArrayList<>();
         for(T key: this.quadraticSpace){
