@@ -130,6 +130,9 @@ public class Main {
 	private void batchInsert() {
 		System.out.print(PURPLE + "Enter the path to the file containing words to insert: " + RESET);
 		String filePath = scanner.nextLine();
+		// reform the path and add double slash
+		String[] path = filePath.split("\"");
+		filePath = String.join("\\", path);
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 			ArrayList<String> words = new ArrayList<>();
 			String line;
@@ -147,6 +150,9 @@ public class Main {
 	private void batchDelete() {
 		System.out.print(PURPLE + "Enter the path to the file containing words to delete: " + RESET);
 		String filePath = scanner.nextLine();
+		// reform the path and add double slash
+		String[] path = filePath.split("\"");
+		filePath = String.join("\\", path);
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 			ArrayList<String> words = new ArrayList<>();
 			String line;
