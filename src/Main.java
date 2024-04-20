@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Main {
 	public static final String PURPLE = "\u001B[95m";
+	public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
 	public static final String RESET = "\u001B[0m";
 	private EnglishDictionary dictionary;
 	private Scanner scanner;
@@ -99,9 +101,9 @@ public class Main {
 		String word = scanner.nextLine();
 		boolean inserted = dictionary.insert(word);
 		if (inserted) {
-			System.out.println("Word '" + word + "' successfully inserted.");
+			System.out.println(GREEN+"Word '" + word + "' successfully inserted."+RESET);
 		} else {
-			System.out.println("Word '" + word + "' already exists in the dictionary.");
+			System.out.println(RED+"Word '" + word + "' already exists in the dictionary."+RESET);
 		}
 	}
 
@@ -110,9 +112,9 @@ public class Main {
 		String word = scanner.nextLine();
 		boolean deleted = dictionary.delete(word);
 		if (deleted) {
-			System.out.println("The Word '" + word + "' successfully deleted.");
+			System.out.println(GREEN+"The Word '" + word + "' successfully deleted."+RESET);
 		} else {
-			System.out.println("The word '" + word + "' does not exist in the dictionary.");
+			System.out.println(RED+"The word '" + word + "' does not exist in the dictionary."+RESET);
 		}
 	}
 
@@ -121,9 +123,9 @@ public class Main {
 		String word = scanner.nextLine();
 		boolean exists = dictionary.search(word);
 		if (exists) {
-			System.out.println("The word '" + word + "' exists in the dictionary.");
+			System.out.println(GREEN+"The word '" + word + "' exists in the dictionary."+RESET);
 		} else {
-			System.out.println("The word '" + word + "' does not exist in the dictionary.");
+			System.out.println(RED+"The word '" + word + "' does not exist in the dictionary."+RESET);
 		}
 	}
 
@@ -140,8 +142,8 @@ public class Main {
 				words.add(line.trim());
 			}
 			int[] result = dictionary.batchInsert(words);
-			System.out.println(result[0] + " words added to the dictionary.");
-			System.out.println(result[1] + " words already existed in the dictionary.");
+			System.out.println(GREEN+result[0] + " words added to the dictionary."+RESET);
+			System.out.println(RED+result[1] + " words already existed in the dictionary."+RESET);
 		} catch (IOException e) {
 			System.out.println(PURPLE + "Error reading the file." + RESET);
 		}
@@ -160,8 +162,8 @@ public class Main {
 				words.add(line.trim());
 			}
 			int[] result = dictionary.batchDelete(words);
-			System.out.println(result[0] + " words deleted from the dictionary.");
-			System.out.println(result[1] + " words do not exist in the dictionary.");
+			System.out.println(GREEN+result[0] + " words deleted from the dictionary."+RESET);
+			System.out.println(RED+result[1] + " words do not exist in the dictionary."+RESET);
 		} catch (IOException e) {
 			System.out.println(PURPLE + "Error reading the file." + RESET);
 		}
