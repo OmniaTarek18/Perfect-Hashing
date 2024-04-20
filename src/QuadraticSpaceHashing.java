@@ -11,7 +11,10 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     private static final Object DELETED_MARKER = new Object();
 
     public QuadraticSpaceHashing(int n){                                         // Number of elements to be inserted
-        this.N = (int) Math.pow(2, Math.ceil(Math.log(n * n) / Math.log(2)) );   // Making the table size a power of 2
+        this.N = (int) Math.pow(2, Math.ceil(Math.log(n * n) / Math.log(2)) ) ;   // Making the table size a power of 2
+        if (this.N <= 1) {
+            this.N++;
+        }
         this.hashFunction = new HashFunction(this.N);
         this.quadraticSpace = new ArrayList<>(N); // Initialize quadraticSpace with size N
         for (int i = 0; i < N; i++) { // Initialize it with null values to fix IndexOutOfBoundException
