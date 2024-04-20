@@ -10,11 +10,8 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     private HashFunction hashFunction;
     private static final Object DELETED_MARKER = new Object();
 
-    public QuadraticSpaceHashing(int n) { // Number of elements to be inserted
-        this.N = (int) (Math.ceil(Math.log(n * n) / Math.log(2))) + 1; // Making the table size a power of 2
-        if (this.N == 1) {
-            this.N++;
-        }
+    public QuadraticSpaceHashing(int n){                                         // Number of elements to be inserted
+        this.N = (int) Math.pow(2, Math.ceil(Math.log(n * n) / Math.log(2)) );   // Making the table size a power of 2
         this.hashFunction = new HashFunction(this.N);
         this.quadraticSpace = new ArrayList<>(N); // Initialize quadraticSpace with size N
         for (int i = 0; i < N; i++) { // Initialize it with null values to fix IndexOutOfBoundException
@@ -138,14 +135,15 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     }
 
     // Rebuild occurs when load factor exceeds 0.7
-    private void rebuild() {
-        this.rebuild++;
-        ArrayList<T> elements = new ArrayList<>(quadraticSpace);
-
-        this.N = (int) Math.pow(2, Math.ceil(Math.log(elementCounter * elementCounter) / Math.log(2)));
-        if (this.N == 1) {
-            this.N++;
+    private void rebuild(){
+        this.rebuild ++;
+        ArrayList<T> elements = new ArrayList<>();
+        for(T key: this.quadraticSpace){
+            if (key != null){
+                elements.add(key);
+            }
         }
+        this.N = (int) Math.pow(2, Math.ceil(Math.log(elementCounter * elementCounter) / Math.log(2)) );
         this.hashFunction = new HashFunction(this.N);
 
         // Reinitialize the hash table with the new size
