@@ -57,7 +57,6 @@ public class HashFunction {
 		for(int i=start ; i<256  ; i++) {
 			binaryKey[i] = bitsRep.charAt(i-start) == '0' ? 0:1;
 		}
-		System.out.println(Arrays.toString(binaryKey));
 		return binaryKey;
 	}
 
@@ -114,7 +113,6 @@ public class HashFunction {
 			int ascii = (int) key.charAt(i);	 //we can use getBytes() to get the each character then convert it to binary
 			String binaryStr = Integer.toBinaryString(ascii);
 			binaryStr=String.format("%7s",binaryStr).replace(' ', '0');		//to ensure that all letters are represented in 7 bits
-			System.out.println(binaryStr);
 			binary.append(binaryStr);
 		}
 		String binaryString = binary.toString();
