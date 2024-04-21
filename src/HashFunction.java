@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class HashFunction {
@@ -50,12 +51,13 @@ public class HashFunction {
 	/*
 	 * convert binary string to binary array of size 256
 	 */
-	private int[] convertToBinaryArr(String bitsRep) {
+	public int[] convertToBinaryArr(String bitsRep) {
 		int[] binaryKey = new int[256];
 		int start = 256 - bitsRep.length() ;
 		for(int i=start ; i<256  ; i++) {
-			binaryKey[i] = (int) bitsRep.charAt(i-start);
+			binaryKey[i] = bitsRep.charAt(i-start) == '0' ? 0:1;
 		}
+		System.out.println(Arrays.toString(binaryKey));
 		return binaryKey;
 	}
 
@@ -109,13 +111,17 @@ public class HashFunction {
 	private String toBinaryString(String key) {
 		StringBuilder binary = new StringBuilder();
 		for (int i = 0; i < key.length(); i++) {
-			int ascii = (int) key.charAt(i);
+			int ascii = (int) key.charAt(i);	 //we can use getBytes() to get the each character then convert it to binary
 			String binaryStr = Integer.toBinaryString(ascii);
+			binaryStr=String.format("%7s",binaryStr).replace(' ', '0');		//to ensure that all letters are represented in 7 bits
+			System.out.println(binaryStr);
 			binary.append(binaryStr);
 		}
 		String binaryString = binary.toString();
 		return binaryString;
 
 	}
+	
+
 
 }
