@@ -163,7 +163,7 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
                 insert(key);
             }
         }
-        // Do I reset the number of collisions ??
+        this.collisions = 0;
     }
 
     public int getCollisions() {

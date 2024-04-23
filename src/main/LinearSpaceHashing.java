@@ -34,20 +34,8 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
     public boolean insert(T key) {
         int primaryIndex = (int) primaryFunction.hash(key);
 
-        if (linearSpace.get(primaryIndex) == null || Objects.equals(linearSpace.get(primaryIndex), DELETED_MARKER)) { // If
-                                                                                                                      // the
-                                                                                                                      // second
-                                                                                                                      // level
-                                                                                                                      // empty,
-                                                                                                                      // create
-                                                                                                                      // an
-                                                                                                                      // N^2
-                                                                                                                      // perfect
-                                                                                                                      // hashing
-                                                                                                                      // and
-                                                                                                                      // insert
-                                                                                                                      // the
-                                                                                                                      // element
+        if (linearSpace.get(primaryIndex) == null || Objects.equals(linearSpace.get(primaryIndex), DELETED_MARKER)) { // If the second level empty,create an N^2 perfect hashing and insert the element
+
             this.elementCounter++;
             if (this.elementCounter / this.N > 0.7) {
                 this.rebuild(elementCounter);
@@ -130,7 +118,8 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
         }
         return deleted;
     }
-    public int[] batchInsert(ArrayList<T> elements, int newSize){
+
+    public int[] batchInsert(ArrayList<T> elements, int newSize) {
         rebuild(newSize);
         return batchInsertHelper(elements);
     }
@@ -153,6 +142,7 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
         for (int i = 0; i < this.N; i++) {
             this.linearSpace.add(null);
         }
+        this.collisions = 0;
         this.batchInsertHelper(elements);
         this.elementCounter = elements.size(); // Update the element counter with the size of the elements list
     }
@@ -171,7 +161,8 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
     public int getRebuild() {
         return this.rebuild;
     }
-    public int getSize(){
+
+    public int getSize() {
         return this.N;
     }
 }
