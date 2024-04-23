@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 public class EnglishDictionaryTest {
 
-    private EnglishDictionary dictL = new EnglishDictionary("linear");
-    private EnglishDictionary dictQ = new EnglishDictionary("quadratic");
+    private EnglishDictionary dictL = new EnglishDictionary("linear",5); // Initial size of the dictionary is 5
+    private EnglishDictionary dictQ = new EnglishDictionary("quadratic",5);
     ArrayList<String> dictionaryData = new ArrayList<>();
 
     @BeforeEach

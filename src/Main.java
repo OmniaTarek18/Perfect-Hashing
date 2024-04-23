@@ -25,7 +25,7 @@ public class Main {
 				exitProgram = true;
 				continue;
 			}
-			initializeDictionary(backendType);
+			initializeDictionary(backendType,5); // Initial size of the dictionary is 5
 			boolean exitMenu = false;
 			while (!exitMenu) {
 				printCommandsMenu();
@@ -89,9 +89,9 @@ public class Main {
 		return backendType;
 	}
 
-	private void initializeDictionary(String backendType) {
+	private void initializeDictionary(String backendType,int n) {
 		if (!backendType.equals("exit")) {
-			dictionary = new EnglishDictionary(backendType);
+			dictionary = new EnglishDictionary(backendType,n);
 			System.out.println(PURPLE + "Initialized with " + backendType + " hashing." + RESET);
 		}
 	}
@@ -141,6 +141,8 @@ public class Main {
 			while ((line = reader.readLine()) != null) {
 				words.add(line.trim());
 			}
+			int previousSize = dictionary.size(); // Get the previous size of the dictionary
+			dictionary.rehash(previousSize + words.size()); // rehash with the updated size
 			int[] result = dictionary.batchInsert(words);
 			System.out.println(GREEN+result[0] + " words added to the dictionary."+RESET);
 			System.out.println(RED+result[1] + " words already existed in the dictionary."+RESET);

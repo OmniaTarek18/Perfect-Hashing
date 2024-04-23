@@ -151,4 +151,15 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
     public int getRebuild() {
         return this.rebuild;
     }
+
+    @Override
+    public ArrayList<T> getAllKeys() {
+        ArrayList<T> keys = new ArrayList<>();
+        for (QuadraticSpaceHashing<T> q : this.linearSpace) {
+            if (q != null) {
+                keys.addAll(q.getElements());
+            }
+        }
+        return keys;
+    }
 }

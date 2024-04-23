@@ -8,4 +8,5 @@ public interface PerfectHashing<T> {
 	public int[] batchDelete(ArrayList<T> elements);
 	public int getCollisions();
 	public int getRebuild();
+	ArrayList<T> getAllKeys();
 }
