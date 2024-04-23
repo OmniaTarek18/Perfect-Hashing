@@ -22,7 +22,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testBatchDeleteIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
-        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         ArrayList<Integer> deleteData = new ArrayList<>(Arrays.asList(3, 2, 11, 2, 0));
         int[] expectedResults = { 1, 4 };
         assertArrayEquals(expectedResults, intTable.batchDelete(deleteData));
@@ -31,7 +31,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testBatchDeleteDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         ArrayList<Double> deleteData = new ArrayList<>(Arrays.asList(3.0, 2.22, -11.5, -5.6, 0.0));
         int[] expectedResults = { 1, 4 };
         assertArrayEquals(expectedResults, doubleTable.batchDelete(deleteData));
@@ -41,7 +41,7 @@ public class LinearSpaceHashingTest {
     void testBatchDeleteStrings() {
         ArrayList<String> stringData = new ArrayList<>(
                 Arrays.asList("this", "is string test", "good luck", "nice to meet u", "lemaza nhn hona", "hi"));
-        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData));
+        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData,stringData.size()+stringTable.getSize()));
         ArrayList<String> deleteData = new ArrayList<>(
                 Arrays.asList("hi", "data structure", "is string test", "hi", "perfect hashing"));
         int[] expectedResults = { 2, 3 };
@@ -62,30 +62,30 @@ public class LinearSpaceHashingTest {
     @Test
     void testBatchInsertIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
-        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         ArrayList<Integer> insertData = new ArrayList<>(Arrays.asList(3, 2, 11, 3, 0));
         int[] expectedResults = { 3, 2 };
-        assertArrayEquals(expectedResults, intTable.batchInsert(insertData));
+        assertArrayEquals(expectedResults, intTable.batchInsert(insertData,insertData.size()+intTable.getSize()));
     }
 
     @Test
     void testBatchInsertDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         ArrayList<Double> insertData = new ArrayList<>(Arrays.asList(3.0, 2.22, -11.5, 3.0, 0.0));
         int[] expectedResults = { 4, 1 };
-        assertArrayEquals(expectedResults, doubleTable.batchInsert(insertData));
+        assertArrayEquals(expectedResults, doubleTable.batchInsert(insertData,insertData.size()+doubleTable.getSize()));
     }
 
     @Test
     void testBatchInsertStrings() {
         ArrayList<String> stringData = new ArrayList<>(
                 Arrays.asList("this", "is string test", "good luck", "nice to meet u", "lemaza nhn hona", "hi"));
-        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData));
+        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData,stringData.size()+stringTable.getSize()));
         ArrayList<String> insertData = new ArrayList<>(
                 Arrays.asList("hi", "data structure", "is string test", "hi", "perfect hashing"));
         int[] expectedResults = { 2, 3 };
-        assertArrayEquals(expectedResults, stringTable.batchInsert(insertData));
+        assertArrayEquals(expectedResults, stringTable.batchInsert(insertData,insertData.size()+stringTable.getSize()));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testDeleteIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
-        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         assertTrue(intTable.delete(111));
         assertFalse(intTable.delete(-9840));
     }
@@ -110,7 +110,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testDeleteDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.delete(1.9));
         assertFalse(doubleTable.delete(-2.22));
     }
@@ -119,7 +119,7 @@ public class LinearSpaceHashingTest {
     void testDeleteStrings() {
         ArrayList<String> stringData = new ArrayList<>(
                 Arrays.asList("this", "is string test", "good luck", "nice to meet u", "lemaza nhn hona", "hi"));
-        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData));
+        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData,stringData.size()+stringTable.getSize()));
         assertTrue(stringTable.delete("is string test"));
         assertFalse(stringTable.delete("non-existing"));
     }
@@ -146,7 +146,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testInsertIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
-        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         assertTrue(intTable.insert(-33));
         assertFalse(intTable.insert(111));
     }
@@ -154,7 +154,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testInsertDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.insert(-3.0));
         assertFalse(doubleTable.insert(111.0));
     }
@@ -163,7 +163,7 @@ public class LinearSpaceHashingTest {
     void testInsertStrings() {
         ArrayList<String> stringData = new ArrayList<>(
                 Arrays.asList("this", "is string test", "good luck", "nice to meet u", "lemaza nhn hona", "hi"));
-        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData));
+        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData,stringData.size()+stringTable.getSize()));
         assertTrue(stringTable.insert("new string"));
         assertFalse(stringTable.insert("is string test"));
     }
@@ -210,7 +210,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 111, 4, 6, 2, -2));
-        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         assertTrue(intTable.searchForKey(2));
         assertFalse(intTable.searchForKey(-33));
     }
@@ -218,7 +218,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyPositiveIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(0, 19, 43, 60, 2, 4));
-        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         assertTrue(intTable.searchForKey(2));
         assertFalse(intTable.searchForKey(3));
     }
@@ -226,7 +226,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyNegativeIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(-1, -111, -4, -6, -2, -54759));
-        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData));
+        assertArrayEquals(new int[] { 6, 0 }, intTable.batchInsert(intData,intData.size()+intTable.getSize()));
         assertTrue(intTable.searchForKey(-2));
         assertFalse(intTable.searchForKey(-33));
     }
@@ -234,7 +234,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.searchForKey(-5.6));
         assertFalse(doubleTable.searchForKey(111564.0));
     }
@@ -242,7 +242,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyPositveDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, 9.343, 19.4, 809.3, 99.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.searchForKey(19.4));
         assertFalse(doubleTable.searchForKey(1164.0));
     }
@@ -250,7 +250,7 @@ public class LinearSpaceHashingTest {
     @Test
     void testSearchForKeyNegativeDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(-1.9, -5.6, -111.0, -41213.3, -6.0, -2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.searchForKey(-5.6));
         assertFalse(doubleTable.searchForKey(111564.543));
     }
@@ -259,7 +259,7 @@ public class LinearSpaceHashingTest {
     void testSearchForKeyStrings() {
         ArrayList<String> stringData = new ArrayList<>(
                 Arrays.asList("data", "structure", "perfect hashing good luck", "nice to meet u", "3ash", "hi"));
-        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData));
+        assertArrayEquals(new int[] { 6, 0 }, stringTable.batchInsert(stringData,stringData.size()+stringTable.getSize()));
         assertTrue(stringTable.searchForKey("hi"));
         assertFalse(stringTable.searchForKey("non-existing"));
     }

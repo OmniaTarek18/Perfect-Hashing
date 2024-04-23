@@ -141,7 +141,8 @@ public class Main {
 			while ((line = reader.readLine()) != null) {
 				words.add(line.trim());
 			}
-			int[] result = dictionary.batchInsert(words);
+			int previousSize = dictionary.getSize();
+			int[] result = dictionary.batchInsert(words,words.size()+previousSize);
 			System.out.println(GREEN+result[0] + " words added to the dictionary."+RESET);
 			System.out.println(RED+result[1] + " words already existed in the dictionary."+RESET);
 		} catch (IOException e) {

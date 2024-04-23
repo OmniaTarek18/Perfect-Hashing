@@ -37,7 +37,7 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
             // and return true.
             this.elementCounter++;
             if (this.elementCounter / this.N > 0.7) {
-                this.rebuild();
+                this.rebuild(this.elementCounter);
 
                 return this.insert(key);
             } else {
@@ -79,7 +79,7 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     }
 
     // Returns the number of newly added elements and already existing elements.
-    public int[] batchInsert(ArrayList<T> elements) {
+    public int[] batchInsertHelper(ArrayList<T> elements) {
         int[] added = { 0, 0 }; // Index 0 indicates how many newly added elements; Index 1 indicates how many
                                 // elements already existed.
 
@@ -134,11 +134,11 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
         }
         // System.out.println("rehashed");
         this.elementCounter = 0;
-        this.batchInsert(elements);
+        this.batchInsertHelper(elements);
     }
 
     // Rebuild occurs when load factor exceeds 0.7
-    private void rebuild(){
+    private void rebuild(int m){
         this.rebuild ++;
         ArrayList<T> elements = new ArrayList<>();
         for(T key: this.quadraticSpace){
@@ -146,7 +146,7 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
                 elements.add(key);
             }
         }
-        this.N = (int) Math.pow(2, Math.ceil(Math.log(elementCounter * elementCounter) / Math.log(2)) );
+        this.N = (int) Math.pow(2, Math.ceil(Math.log(m * m) / Math.log(2)) );
         this.hashFunction = new HashFunction(this.N);
 
         // Reinitialize the hash table with the new size
@@ -172,6 +172,10 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     public int getRebuild() {
         return this.rebuild;
     }
+    public int[] batchInsert(ArrayList<T> elements,int newSize){
+        rebuild(newSize);
+        return batchInsertHelper(elements);
+    }
 
     public ArrayList<T> getElements() {
         ArrayList<T> elements = new ArrayList<>();
@@ -181,6 +185,9 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
             }
         }
         return elements;
+    }
+    public int getSize(){
+        return this.N;
     }
 
 }
