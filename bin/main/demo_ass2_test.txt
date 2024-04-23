@@ -1,0 +1,6 @@
+cat
+butterfly
+cheetah
+dog
+eagle
+eagle

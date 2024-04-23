@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,6 +12,8 @@ import java.util.HashSet;
 import java.util.Random;
 
 import org.junit.jupiter.api.Test;
+
+import main.LinearSpaceHashing;
 
 public class LinearSpaceHashingTest {
     public static final int MAX_ARRAY_SIZE = 1000000;
@@ -50,13 +54,13 @@ public class LinearSpaceHashingTest {
 
     @Test
     void testBatchDeleteChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[] { 6, 0 }, charTable.batchInsert(charData));
-        // ArrayList<Character> deleteData = new ArrayList<>(Arrays.asList('4', 'd',
-        // '8', 'z', 'd'));
-        // int[] expectedResults = { 1, 4 };
-        // assertArrayEquals(expectedResults, charTable.batchDelete(deleteData));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+                'd', 'e', 'f'));
+        assertArrayEquals(new int[] { 6, 0 }, charTable.batchInsert(charData));
+        ArrayList<Character> deleteData = new ArrayList<>(Arrays.asList('4', 'd',
+                '8', 'z', 'd'));
+        int[] expectedResults = { 1, 4 };
+        assertArrayEquals(expectedResults, charTable.batchDelete(deleteData));
     }
 
     @Test
@@ -90,13 +94,13 @@ public class LinearSpaceHashingTest {
 
     @Test
     void testBatchInsertChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // ArrayList<Character> insertData = new ArrayList<>(Arrays.asList('4', 'd',
-        // '8', 'z', 'd'));
-        // int[] expectedResults = { 4, 1 };
-        // assertArrayEquals(expectedResults, charTable.batchInsert(insertData));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        ArrayList<Character> insertData = new ArrayList<>(Arrays.asList('4', 'd',
+        '8', 'z', 'd'));
+        int[] expectedResults = { 3, 2};
+        assertArrayEquals(expectedResults, charTable.batchInsert(insertData));
     }
 
     @Test
@@ -126,11 +130,11 @@ public class LinearSpaceHashingTest {
 
     @Test
     void testDeleteChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.delete('d'));
-        // assertFalse(charTable.delete('z'));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.delete('d'));
+        assertFalse(charTable.delete('z'));
     }
 
     @Test
@@ -170,11 +174,11 @@ public class LinearSpaceHashingTest {
 
     @Test
     void testInsertChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.insert('x'));
-        // assertFalse(charTable.insert('d'));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.insert('x'));
+        assertFalse(charTable.insert('d'));
     }
 
     @Test
@@ -183,7 +187,7 @@ public class LinearSpaceHashingTest {
         Random random_method = new Random();
         // loop for generation random number
         for (int i = 0; i < MAX_ARRAY_SIZE; i++) {
-            int element = random_method.nextInt(Integer.MIN_VALUE,Integer.MAX_VALUE);
+            int element = random_method.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
             intData.add(element);
         }
         System.out.println(intData);
@@ -266,11 +270,11 @@ public class LinearSpaceHashingTest {
 
     @Test
     void testSearchForKeyChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.searchForKey('d'));
-        // assertFalse(charTable.searchForKey('z'));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.searchForKey('d'));
+        assertFalse(charTable.searchForKey('z'));
     }
 
 }

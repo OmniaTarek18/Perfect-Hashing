@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -7,10 +8,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.EnglishDictionary;
+
 public class EnglishDictionaryTest {
 
-    private EnglishDictionary dictL = new EnglishDictionary("linear",5); // Initial size of the dictionary is 5
-    private EnglishDictionary dictQ = new EnglishDictionary("quadratic",5);
+    private EnglishDictionary dictL = new EnglishDictionary("linear",5);  // Initial size of the dictionary is 5
+    private EnglishDictionary dictQ = new EnglishDictionary("quadratic", 5);
     ArrayList<String> dictionaryData = new ArrayList<>();
 
     @BeforeEach
