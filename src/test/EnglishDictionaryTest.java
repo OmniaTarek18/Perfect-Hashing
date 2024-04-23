@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -7,10 +9,12 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.EnglishDictionary;
+
 public class EnglishDictionaryTest {
 
-    private EnglishDictionary dictL = new EnglishDictionary("linear",5); // Initial size of the dictionary is 5
-    private EnglishDictionary dictQ = new EnglishDictionary("quadratic",5);
+    private EnglishDictionary dictL = new EnglishDictionary("linear"); // Initial size of the dictionary is 5
+    private EnglishDictionary dictQ = new EnglishDictionary("quadratic");
     ArrayList<String> dictionaryData = new ArrayList<>();
 
     @BeforeEach
@@ -45,7 +49,7 @@ public class EnglishDictionaryTest {
 
     @Test
     void testBatchInsertL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
 
         ArrayList<String> insertData = new ArrayList<>();
         insertData.add("cat");
@@ -55,12 +59,12 @@ public class EnglishDictionaryTest {
         insertData.add("eagle");
         insertData.add("eagle");
         int[] expectedResultsL = { 3, 3 };
-        assertArrayEquals(expectedResultsL, dictL.batchInsert(insertData));
+        assertArrayEquals(expectedResultsL, dictL.batchInsert(insertData,insertData.size()+dictL.getSize()));
     }
 
     @Test
     void testBatchInsertQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
 
         ArrayList<String> insertData = new ArrayList<>();
         insertData.add("cat");
@@ -70,12 +74,12 @@ public class EnglishDictionaryTest {
         insertData.add("eagle");
         insertData.add("eagle");
         int[] expectedResultsQ = { 3, 3 };
-        assertArrayEquals(expectedResultsQ, dictQ.batchInsert(insertData));
+        assertArrayEquals(expectedResultsQ, dictQ.batchInsert(insertData,insertData.size()+dictQ.getSize()));
     }
 
     @Test
     void testBatchDeleteL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
         ArrayList<String> deleteData = new ArrayList<>();
         deleteData.add("cat");
         deleteData.add("butterfly");
@@ -89,7 +93,7 @@ public class EnglishDictionaryTest {
 
     @Test
     void testBatchDeleteQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
         ArrayList<String> deleteData = new ArrayList<>();
         deleteData.add("cat");
         deleteData.add("butterfly");
@@ -104,54 +108,54 @@ public class EnglishDictionaryTest {
 
     @Test
     void testBatchDeleteTheDictL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
         assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchDelete(dictionaryData));
     }
 
     @Test
     void testBatchDeleteTheDictQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
         assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchDelete(dictionaryData));
     }
 
     @Test
     void testDeleteL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
         assertTrue(dictL.delete("lion"));
         assertFalse(dictL.delete("antelope"));
     }
 
     @Test
     void testDeleteQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
         assertTrue(dictQ.delete("lion"));
         assertFalse(dictQ.delete("antelope"));
     }
 
     @Test
     void testInsertL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
         assertTrue(dictL.insert("antelope"));
         assertFalse(dictL.insert("lion"));
     }
 
     @Test
     void testInsertQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
         assertTrue(dictQ.insert("antelope"));
         assertFalse(dictQ.insert("lion"));
     }
 
     @Test
     void testSearchL() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData,dictionaryData.size()+dictL.getSize()));
         assertTrue(dictL.search("lion"));
         assertFalse(dictL.search("eel"));
     }
 
     @Test
     void testSearchQ() {
-        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData,dictionaryData.size()+dictQ.getSize()));
         assertTrue(dictQ.search("lion"));
         assertFalse(dictQ.search("eel"));
     }
