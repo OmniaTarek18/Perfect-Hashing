@@ -138,16 +138,6 @@ public class LinearSpaceHashingTest {
     }
 
     @Test
-    void testGetCollisions() {
-
-    }
-
-    @Test
-    void testGetRebuild() {
-
-    }
-
-    @Test
     void testInsertIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
         assertArrayEquals(new int[] { 7, 0 }, intTable.batchInsert(intData));
@@ -190,7 +180,6 @@ public class LinearSpaceHashingTest {
             int element = random_method.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
             intData.add(element);
         }
-        System.out.println(intData);
         HashSet<Object> hs = new HashSet<>(Arrays.asList(intData));
         assertEquals(hs.contains(random_method.nextInt(Integer.MAX_VALUE)), intTable.searchForKey(2));
     }
@@ -275,6 +264,8 @@ public class LinearSpaceHashingTest {
         assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
         assertTrue(charTable.searchForKey('d'));
         assertFalse(charTable.searchForKey('z'));
+        System.out.println(charTable.getRebuild());
+        System.out.println(charTable.getCollisions());
     }
 
 }

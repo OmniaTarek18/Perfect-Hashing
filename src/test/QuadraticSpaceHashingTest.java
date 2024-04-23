@@ -191,7 +191,6 @@ public class QuadraticSpaceHashingTest {
             int element = random_method.nextInt(Integer.MIN_VALUE,Integer.MAX_VALUE);
             intData.add(element);
         }
-        System.out.println(intData);
         HashSet<Object> hs = new HashSet<>(Arrays.asList(intData));
         assertEquals(hs.contains(random_method.nextInt(Integer.MAX_VALUE)), intTable.searchForKey(2));
     }
@@ -276,6 +275,8 @@ public class QuadraticSpaceHashingTest {
         assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
         assertTrue(charTable.searchForKey('d'));
         assertFalse(charTable.searchForKey('z'));
+        System.out.println(charTable.getCollisions());
+        System.out.println(charTable.getRebuild());
     }
 
 }
