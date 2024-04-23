@@ -1,35 +1,16 @@
 import java.util.ArrayList;
 
-public class EnglishDictionary{
+public class EnglishDictionary {
     private PerfectHashing<String> perfectHashTable;
-    private int size;
-    public EnglishDictionary(String backendType,int n) {
+
+    public EnglishDictionary(String backendType) {
         if (backendType.equals("quadratic")) {
-            perfectHashTable = new QuadraticSpaceHashing<>(n);
+            perfectHashTable = new QuadraticSpaceHashing<>(1);
         } else if (backendType.equals("linear")) {
-            perfectHashTable = new LinearSpaceHashing<>(n);
+            perfectHashTable = new LinearSpaceHashing<>(1);
         } else {
             System.out.println("Invalid backend type specified.");
         }
-        this.size = n;
-    }
-
-    public int size(){
-        return this.size;
-    } 
-
-    public void rehash(int newSize) {
-        PerfectHashing<String> newHashTable;
-        ArrayList<String> elements = new ArrayList<>();
-        elements = perfectHashTable.getAllKeys();
-        if (perfectHashTable instanceof QuadraticSpaceHashing) {
-            newHashTable = new QuadraticSpaceHashing<>(newSize);
-            newHashTable.batchInsert(elements);
-        } else {
-            newHashTable = new LinearSpaceHashing<>(newSize);
-            newHashTable.batchInsert(elements);
-        }
-        perfectHashTable = newHashTable;
     }
 
     public boolean insert(String word) {
