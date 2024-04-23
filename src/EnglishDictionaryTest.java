@@ -11,100 +11,148 @@ public class EnglishDictionaryTest {
 
     private EnglishDictionary dictL = new EnglishDictionary("linear");
     private EnglishDictionary dictQ = new EnglishDictionary("quadratic");
-    private ArrayList<String> data = new ArrayList<>();
-    
+    ArrayList<String> dictionaryData = new ArrayList<>();
+
     @BeforeEach
     public void setUp() {
-        data.clear();
-        data.add("aaa");
-        data.add("bb");
-        data.add("dddd");
-        data.add("aaa");
-        data.add("eee");
-        data.add("aaa");
+        dictionaryData.add("apple");
+        dictionaryData.add("banana");
+        dictionaryData.add("cat");
+        dictionaryData.add("dog");
+        dictionaryData.add("elephant");
+        dictionaryData.add("fish");
+        dictionaryData.add("gorilla");
+        dictionaryData.add("horse");
+        dictionaryData.add("iguana");
+        dictionaryData.add("jaguar");
+        dictionaryData.add("kangaroo");
+        dictionaryData.add("lion");
+        dictionaryData.add("monkey");
+        dictionaryData.add("newt");
+        dictionaryData.add("ostrich");
+        dictionaryData.add("penguin");
+        dictionaryData.add("quail");
+        dictionaryData.add("rhinoceros");
+        dictionaryData.add("snake");
+        dictionaryData.add("tiger");
+        dictionaryData.add("unicorn");
+        dictionaryData.add("vulture");
+        dictionaryData.add("walrus");
+        dictionaryData.add("xenops");
+        dictionaryData.add("yak");
+        dictionaryData.add("zebra");
     }
 
     @Test
-    void testBatchInsertL() {    
-        int[] expectedResults = {4, 2};
-        assertArrayEquals(expectedResults,dictL.batchInsert(data));
+    void testBatchInsertL() {
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+
+        ArrayList<String> insertData = new ArrayList<>();
+        insertData.add("cat");
+        insertData.add("butterfly");
+        insertData.add("cheetah");
+        insertData.add("dog");
+        insertData.add("eagle");
+        insertData.add("eagle");
+        int[] expectedResultsL = { 3, 3 };
+        assertArrayEquals(expectedResultsL, dictL.batchInsert(insertData));
     }
 
     @Test
     void testBatchInsertQ() {
-        int[] expectedResults = {4, 2};
-        assertArrayEquals(expectedResults,dictQ.batchInsert(data));
-    }
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
 
+        ArrayList<String> insertData = new ArrayList<>();
+        insertData.add("cat");
+        insertData.add("butterfly");
+        insertData.add("cheetah");
+        insertData.add("dog");
+        insertData.add("eagle");
+        insertData.add("eagle");
+        int[] expectedResultsQ = { 3, 3 };
+        assertArrayEquals(expectedResultsQ, dictQ.batchInsert(insertData));
+    }
 
     @Test
     void testBatchDeleteL() {
-        dictL.batchInsert(data); 
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
         ArrayList<String> deleteData = new ArrayList<>();
-        deleteData.add("aaa");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        int[] expectedResultsL = {2 ,3};
-        assertArrayEquals(expectedResultsL,dictL.batchDelete(deleteData));
+        deleteData.add("cat");
+        deleteData.add("butterfly");
+        deleteData.add("cheetah");
+        deleteData.add("dog");
+        deleteData.add("eagle");
+        deleteData.add("dog");
+        int[] expectedResultsL = { 2, 4 };
+        assertArrayEquals(expectedResultsL, dictL.batchDelete(deleteData));
+    }
+
+    @Test
+    void testBatchDeleteQ() {
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        ArrayList<String> deleteData = new ArrayList<>();
+        deleteData.add("cat");
+        deleteData.add("butterfly");
+        deleteData.add("cheetah");
+        deleteData.add("dog");
+        deleteData.add("eagle");
+        deleteData.add("dog");
+        int[] expectedResultsQ = { 2, 4 };
+        assertArrayEquals(expectedResultsQ, dictQ.batchDelete(deleteData));
     }
 
 
     @Test
-    void testBatchDeleteQ() {
-        dictQ.batchInsert(data);
+    void testBatchDeleteTheDictL() {
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchDelete(dictionaryData));
+    }
 
-        ArrayList<String> deleteData = new ArrayList<>();
-        deleteData.add("aaa");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        deleteData.add("bb");
-        int[] expectedResultsQ = {2 ,3};
-       
-        assertArrayEquals(expectedResultsQ,dictQ.batchDelete(deleteData));
+    @Test
+    void testBatchDeleteTheDictQ() {
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchDelete(dictionaryData));
     }
 
     @Test
     void testDeleteL() {
-        dictL.batchInsert(data);
-        assertTrue(dictL.delete("aaa"));
-        assertFalse(dictL.delete("dd"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertTrue(dictL.delete("lion"));
+        assertFalse(dictL.delete("antelope"));
     }
 
     @Test
     void testDeleteQ() {
-        dictQ.batchInsert(data);
-        assertTrue(dictQ.delete("aaa"));
-        assertFalse(dictQ.delete("dd"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertTrue(dictQ.delete("lion"));
+        assertFalse(dictQ.delete("antelope"));
     }
 
     @Test
     void testInsertL() {
-        dictL.batchInsert(data);
-        assertTrue(dictL.insert("aa"));
-        assertFalse(dictL.insert("dddd"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertTrue(dictL.insert("antelope"));
+        assertFalse(dictL.insert("lion"));
     }
 
     @Test
     void testInsertQ() {
-        dictQ.batchInsert(data);
-        assertTrue(dictQ.insert("aac"));
-        assertFalse(dictQ.insert("dddd"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertTrue(dictQ.insert("antelope"));
+        assertFalse(dictQ.insert("lion"));
     }
 
     @Test
     void testSearchL() {
-        dictL.batchInsert(data);
-        assertTrue(dictL.search("aaa"));
-        assertFalse(dictL.search("d"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictL.batchInsert(dictionaryData));
+        assertTrue(dictL.search("lion"));
+        assertFalse(dictL.search("eel"));
     }
 
     @Test
     void testSearchQ() {
-        dictQ.batchInsert(data);
-        assertTrue(dictQ.search("aaa"));
-        assertFalse(dictQ.search("d"));
+        assertArrayEquals(new int[]{dictionaryData.size(), 0}, dictQ.batchInsert(dictionaryData));
+        assertTrue(dictQ.search("lion"));
+        assertFalse(dictQ.search("eel"));
     }
 }
