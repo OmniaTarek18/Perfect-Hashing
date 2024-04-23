@@ -25,7 +25,7 @@ public class Main {
 				exitProgram = true;
 				continue;
 			}
-			initializeDictionary(backendType,5); // Initial size of the dictionary is 5
+			initializeDictionary(backendType);
 			boolean exitMenu = false;
 			while (!exitMenu) {
 				printCommandsMenu();
@@ -44,7 +44,7 @@ public class Main {
 						searchWord();
 						break;
 					case 4:
-						batchInsert(backendType);
+						batchInsert();
 						break;
 					case 5:
 						batchDelete();
@@ -89,9 +89,9 @@ public class Main {
 		return backendType;
 	}
 
-	private void initializeDictionary(String backendType,int n) {
+	private void initializeDictionary(String backendType) {
 		if (!backendType.equals("exit")) {
-			dictionary = new EnglishDictionary(backendType,n);
+			dictionary = new EnglishDictionary(backendType);
 			System.out.println(PURPLE + "Initialized with " + backendType + " hashing." + RESET);
 		}
 	}
@@ -129,7 +129,7 @@ public class Main {
 		}
 	}
 
-	private void batchInsert(String backendType) {
+	private void batchInsert() {
 		System.out.print(PURPLE + "Enter the path to the file containing words to insert: " + RESET);
 		String filePath = scanner.nextLine();
 		// reform the path and add double slash
@@ -141,8 +141,6 @@ public class Main {
 			while ((line = reader.readLine()) != null) {
 				words.add(line.trim());
 			}
-			int previousSize = dictionary.size(); // Get the previous size of the dictionary
-			initializeDictionary(backendType, previousSize + words.size()); // Update the size
 			int[] result = dictionary.batchInsert(words);
 			System.out.println(GREEN+result[0] + " words added to the dictionary."+RESET);
 			System.out.println(RED+result[1] + " words already existed in the dictionary."+RESET);
