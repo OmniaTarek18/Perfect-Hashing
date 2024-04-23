@@ -29,7 +29,7 @@ public class QuadraticSpaceHashing<T> implements PerfectHashing<T> {
     public boolean insert(T key) {
 
         int index = (int) hashFunction.hash(key);
-
+        //System.out.println(this.N);
         if (Objects.equals(this.quadraticSpace.get(index), null)
                 || Objects.equals(this.quadraticSpace.get(index), DELETED_MARKER)) { // If the place is empty, check for
                                                                                      // load factor and
