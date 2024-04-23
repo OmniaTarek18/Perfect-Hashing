@@ -1,3 +1,5 @@
+package main;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -32,7 +34,20 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
     public boolean insert(T key) {
         int primaryIndex = (int) primaryFunction.hash(key);
 
-        if (linearSpace.get(primaryIndex) == null || Objects.equals(linearSpace.get(primaryIndex), DELETED_MARKER)) { // If the second level empty, create an N^2 perfect hashing and insert the element
+        if (linearSpace.get(primaryIndex) == null || Objects.equals(linearSpace.get(primaryIndex), DELETED_MARKER)) { // If
+                                                                                                                      // the
+                                                                                                                      // second
+                                                                                                                      // level
+                                                                                                                      // empty,
+                                                                                                                      // create
+                                                                                                                      // an
+                                                                                                                      // N^2
+                                                                                                                      // perfect
+                                                                                                                      // hashing
+                                                                                                                      // and
+                                                                                                                      // insert
+                                                                                                                      // the
+                                                                                                                      // element
             this.elementCounter++;
             if (this.elementCounter / this.N > 0.7) {
                 this.rebuild(elementCounter);
@@ -146,7 +161,9 @@ public class LinearSpaceHashing<T> implements PerfectHashing<T> {
     // second level)
     public int getCollisions() {
         for (QuadraticSpaceHashing<T> q : linearSpace) {
-            this.collisions += q.getCollisions();
+            if (q != null) {
+                this.collisions += q.getCollisions();
+            }
         }
         return this.collisions;
     }

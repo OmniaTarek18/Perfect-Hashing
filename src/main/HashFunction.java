@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package main;
+
 import java.util.Random;
 
 public class HashFunction {
@@ -84,6 +85,8 @@ public class HashFunction {
 			newKey = this.toBinaryString((Double) key);
 		} else if (key instanceof Long)
 			newKey = this.toBinaryString((Long) key);
+        else if (key instanceof Character)
+			newKey = this.toBinaryString((Character) key);
 		else {
 			newKey =this.toBinaryString((Integer) key);
 		}
@@ -120,6 +123,10 @@ public class HashFunction {
 
 	}
 	
+    private String toBinaryString(Character key) {
+        String binaryString = Integer.toBinaryString(key);
+		return binaryString;
+	}
 
 
 }

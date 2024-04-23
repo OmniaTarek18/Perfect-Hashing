@@ -1,3 +1,5 @@
+package test;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,16 +13,16 @@ import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
-public class QuadraticSpaceHashingTest {
+import main.LinearSpaceHashing;
+
+public class LinearSpaceHashingTest {
     public static final int MAX_ARRAY_SIZE = 1000000;
     public static final int MAX_STRING_SIZE = 100;
-    private QuadraticSpaceHashing<Integer> intTable = new QuadraticSpaceHashing<>(1);
-    private QuadraticSpaceHashing<String> stringTable = new QuadraticSpaceHashing<>(1);
-    private QuadraticSpaceHashing<Double> doubleTable = new QuadraticSpaceHashing<>(1);
-    private QuadraticSpaceHashing<Character> charTable = new QuadraticSpaceHashing<>(1);
+    private LinearSpaceHashing<Integer> intTable = new LinearSpaceHashing<>(1);
+    private LinearSpaceHashing<String> stringTable = new LinearSpaceHashing<>(1);
+    private LinearSpaceHashing<Double> doubleTable = new LinearSpaceHashing<>(1);
+    private LinearSpaceHashing<Character> charTable = new LinearSpaceHashing<>(1);
 
-    
-   
     @Test
     void testBatchDeleteIntegers() {
         ArrayList<Integer> intData = new ArrayList<>(Arrays.asList(1, 5, 111, 4, 6, 2, -2));
@@ -52,13 +54,13 @@ public class QuadraticSpaceHashingTest {
 
     @Test
     void testBatchDeleteChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[] { 6, 0 }, charTable.batchInsert(charData));
-        // ArrayList<Character> deleteData = new ArrayList<>(Arrays.asList('4', 'd',
-        // '8', 'z', 'd'));
-        // int[] expectedResults = { 1, 4 };
-        // assertArrayEquals(expectedResults, charTable.batchDelete(deleteData));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+                'd', 'e', 'f'));
+        assertArrayEquals(new int[] { 6, 0 }, charTable.batchInsert(charData));
+        ArrayList<Character> deleteData = new ArrayList<>(Arrays.asList('4', 'd',
+                '8', 'z', 'd'));
+        int[] expectedResults = { 1, 4 };
+        assertArrayEquals(expectedResults, charTable.batchDelete(deleteData));
     }
 
     @Test
@@ -92,13 +94,13 @@ public class QuadraticSpaceHashingTest {
 
     @Test
     void testBatchInsertChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // ArrayList<Character> insertData = new ArrayList<>(Arrays.asList('4', 'd',
-        // '8', 'z', 'd'));
-        // int[] expectedResults = { 4, 1 };
-        // assertArrayEquals(expectedResults, charTable.batchInsert(insertData));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        ArrayList<Character> insertData = new ArrayList<>(Arrays.asList('4', 'd',
+        '8', 'z', 'd'));
+        int[] expectedResults = { 3, 2};
+        assertArrayEquals(expectedResults, charTable.batchInsert(insertData));
     }
 
     @Test
@@ -128,21 +130,11 @@ public class QuadraticSpaceHashingTest {
 
     @Test
     void testDeleteChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.delete('d'));
-        // assertFalse(charTable.delete('z'));
-    }
-
-    @Test
-    void testGetCollisions() {
-
-    }
-
-    @Test
-    void testGetRebuild() {
-
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.delete('d'));
+        assertFalse(charTable.delete('z'));
     }
 
     @Test
@@ -172,11 +164,11 @@ public class QuadraticSpaceHashingTest {
 
     @Test
     void testInsertChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.insert('x'));
-        // assertFalse(charTable.insert('d'));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.insert('x'));
+        assertFalse(charTable.insert('d'));
     }
 
     @Test
@@ -185,10 +177,9 @@ public class QuadraticSpaceHashingTest {
         Random random_method = new Random();
         // loop for generation random number
         for (int i = 0; i < MAX_ARRAY_SIZE; i++) {
-            int element = random_method.nextInt(Integer.MIN_VALUE,Integer.MAX_VALUE);
+            int element = random_method.nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
             intData.add(element);
         }
-        System.out.println(intData);
         HashSet<Object> hs = new HashSet<>(Arrays.asList(intData));
         assertEquals(hs.contains(random_method.nextInt(Integer.MAX_VALUE)), intTable.searchForKey(2));
     }
@@ -236,7 +227,7 @@ public class QuadraticSpaceHashingTest {
     @Test
     void testSearchForKeyDoubles() {
         ArrayList<Double> doubleData = new ArrayList<>(Arrays.asList(1.9, -5.6, 111.0, 41213.3, 6.0, 2.2));
-        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleTable.getSize()));
+        assertArrayEquals(new int[] { 6, 0 }, doubleTable.batchInsert(doubleData,doubleData.size()+doubleData.size()+doubleTable.getSize()));
         assertTrue(doubleTable.searchForKey(-5.6));
         assertFalse(doubleTable.searchForKey(111564.0));
     }
@@ -268,12 +259,13 @@ public class QuadraticSpaceHashingTest {
 
     @Test
     void testSearchForKeyChars() {
-        // ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
-        // 'd', 'e', 'f'));
-        // assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
-        // assertTrue(charTable.searchForKey('d'));
-        // assertFalse(charTable.searchForKey('z'));
+        ArrayList<Character> charData = new ArrayList<>(Arrays.asList('a', 'b', 'c',
+        'd', 'e', 'f'));
+        assertArrayEquals(new int[]{6, 0}, charTable.batchInsert(charData));
+        assertTrue(charTable.searchForKey('d'));
+        assertFalse(charTable.searchForKey('z'));
+        System.out.println(charTable.getRebuild());
+        System.out.println(charTable.getCollisions());
     }
 
 }
-
